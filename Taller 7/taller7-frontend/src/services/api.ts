@@ -59,6 +59,6 @@ export const obtenerRutaInexistente = () =>
 
 // 11: DELETE «Eliminar publicación»
 export const eliminarPublicacion = (id: number) =>
-  fetch(`${API_URL}/api/posts/3`, {
+  fetch(`${API_URL}/api/posts/${id}`, {
     method: "DELETE"
   });
