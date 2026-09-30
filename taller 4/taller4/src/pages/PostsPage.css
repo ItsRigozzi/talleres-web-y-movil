@@ -1,0 +1,16 @@
+.intro {
+  margin-bottom: 24px;
+}
+
+.posts-container {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.estado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
