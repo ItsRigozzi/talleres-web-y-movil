@@ -1,0 +1,67 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  color: #333;
+  margin: 0;
+}
+
+.contenedor {
+  width: 90%;
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+h1 {
+  color: #0b5ed7;
+}
+
+h2 {
+  color: #198754;
+}
+
+.caja {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 25px;
+}
+
+button {
+  background: #0b5ed7;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #084298;
+}
+
+.estado {
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.lista-posts {
+  display: grid;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.post {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  background: #fafafa;
+}
+
+.post h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.post p {
+  line-height: 1.5;
+}
