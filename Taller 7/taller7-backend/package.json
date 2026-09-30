@@ -1,0 +1,15 @@
+{
+  "name": "taller7-backend",
+  "version": "1.0.0",
+  "description": "Servidor Express del Taller 6, reutilizado en el Taller 7",
+  "main": "servidor.js",
+  "scripts": {
+    "start": "node servidor.js",
+    "dev": "node --watch servidor.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
