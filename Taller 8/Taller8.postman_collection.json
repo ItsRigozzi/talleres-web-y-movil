@@ -1,0 +1,275 @@
+{
+  "info": {
+    "name": "Taller 8",
+    "description": "Peticiones para probar la API del Taller 8.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Todas las publicaciones",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/posts",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "posts"
+          ]
+        },
+        "description": "Debería responder 200."
+      }
+    },
+    {
+      "name": "Publicaciones de un usuario",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/posts?userId=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "posts"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "2"
+            }
+          ]
+        },
+        "description": "Debería responder 200 con las publicaciones del usuario 2."
+      }
+    },
+    {
+      "name": "Una publicación",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/posts/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "posts",
+            "1"
+          ]
+        },
+        "description": "Debería responder 200."
+      }
+    },
+    {
+      "name": "Crear publicación",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/posts",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "posts"
+          ]
+        },
+        "description": "Debería responder 201. Experimento: envíala varias veces.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"title\": \"Mi primera publicación\",\n  \"body\": \"Creada desde Postman\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Actualizar publicación",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/posts/3",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "posts",
+            "3"
+          ]
+        },
+        "description": "Paso 2. Debería responder 200. Experimento: envíala varias veces.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 2,\n  \"title\": \"Métodos HTTP (editado)\",\n  \"body\": \"Contenido actualizado desde Postman\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Actualizar publicación sin título",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/posts/3",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "posts",
+            "3"
+          ]
+        },
+        "description": "Paso 2. Debería responder 400.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"body\": \"A esta publicación le falta el título\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Actualizar publicación inexistente",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/posts/999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "posts",
+            "999"
+          ]
+        },
+        "description": "Paso 2. Debería responder 404.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"No existe\",\n  \"body\": \"Esta publicación no existe\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Eliminar publicación",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/posts/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "posts",
+            "2"
+          ]
+        },
+        "description": "Paso 1. Debería responder 204. Si la envías de nuevo, 404."
+      }
+    },
+    {
+      "name": "JSON malformado",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/posts",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "posts"
+          ]
+        },
+        "description": "Paso 5. Tiene una coma de más. Antes del paso 5 responde HTML; después, JSON con 400.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"JSON con un error\",\n  \"body\": \"Sobra la coma del final\",\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Ruta inexistente",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/no-existe",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "no-existe"
+          ]
+        },
+        "description": "Paso 4. Debería responder 404."
+      }
+    }
+  ]
+}
