@@ -1,0 +1,282 @@
+{
+  "info": {
+    "name": "Taller 10",
+    "description": "Peticiones para probar el inicio de sesión con GitHub del Taller 10.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "state",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "URL de autorización de GitHub",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/github/url",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "github",
+            "url"
+          ]
+        },
+        "description": "Paso 3. Debería responder 200 con la URL de GitHub. Guarda el state en {{state}}. Puedes abrir la URL en el navegador para ver la pantalla de autorización.",
+        "auth": {
+          "type": "noauth"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Guarda el state de la URL en la variable {{state}} de la colección.",
+              "if (pm.response.code === 200) {",
+              "  const coincidencia = pm.response.json().url.match(/state=([^&]+)/);",
+              "  pm.collectionVariables.set(\"state\", coincidencia[1]);",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Intercambio con un código inventado",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/github",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "github"
+          ]
+        },
+        "description": "Paso 4. El state es válido, pero el código es inventado: el servidor consulta a GitHub y responde 401 con el error de GitHub.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"codigo-inventado\",\n  \"state\": \"{{state}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Intercambio repitiendo el state",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/github",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "github"
+          ]
+        },
+        "description": "Paso 4. Envía de nuevo el mismo state: debería responder 400, porque cada state se usa una sola vez.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"codigo-inventado\",\n  \"state\": \"{{state}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Intercambio sin code",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/github",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "github"
+          ]
+        },
+        "description": "Paso 4. Debería responder 400.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"state\": \"{{state}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Login con contraseña (ana)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "login"
+          ]
+        },
+        "description": "Taller 9. El inicio de sesión con contraseña sigue funcionando: debería responder 200.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"ana\",\n  \"password\": \"ana-12345\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Guarda el token en la variable {{token}} de la colección.",
+              "if (pm.response.code === 200) {",
+              "  pm.collectionVariables.set(\"token\", pm.response.json().token);",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Login con contraseña de un usuario de GitHub",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "login"
+          ]
+        },
+        "description": "Paso 2. Primero ingresa con GitHub desde la aplicación, y luego reemplaza el username por tu usuario de GitHub. Debería responder 401: los usuarios de GitHub no tienen contraseña.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"tu-usuario-de-github\",\n  \"password\": \"cualquier-clave\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Mi perfil",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/usuarios/yo",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "yo"
+          ]
+        },
+        "description": "Taller 9. Ruta protegida: debería responder 200 con los datos del usuario del token.",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
