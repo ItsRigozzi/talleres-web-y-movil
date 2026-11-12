@@ -1,0 +1,24 @@
+{
+  "name": "taller11-backend",
+  "version": "1.0.0",
+  "description": "Servidor Express del Taller 11: pruebas automatizadas y Docker",
+  "main": "servidor.js",
+  "scripts": {
+    "start": "node --env-file=.env servidor.js",
+    "dev": "node --env-file=.env --watch servidor.js",
+    "test": "node --env-file=.env.test --test",
+    "test:unitarias": "node --env-file=.env.test --test test/unitarias/*.test.js",
+    "test:integracion": "node --env-file=.env.test --test test/integracion/*.test.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.12.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.2"
+  }
+}

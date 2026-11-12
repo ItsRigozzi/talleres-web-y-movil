@@ -1,0 +1,10 @@
+.callback {
+  max-width: 420px;
+  margin: 48px auto 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.callback .error {
+  color: var(--ion-color-danger, #c5000f);
+}

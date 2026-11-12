@@ -1,0 +1,23 @@
+# Desafio 1: Integración continua con GitHub Actions
+name: Pruebas del backend
+
+on: [push]
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: taller11-backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+          cache: npm
+          cache-dependency-path: taller11-backend/package-lock.json
+      - run: npm ci --ignore-scripts
+      - run: npm test
