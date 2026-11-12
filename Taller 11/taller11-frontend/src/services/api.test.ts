@@ -1,6 +1,6 @@
 // Pruebas unitarias de src/services/api.ts
 // fetch se reemplaza por una función simulada (vi.fn), así no se necesita el servidor.
-
+import { afterEach, describe, expect, test, vi } from "vitest";
 import { ErrorApi, crearPublicacion, eliminarPublicacion, encabezadosConToken, obtenerPublicaciones } from "./api";
 import { guardarSesion } from "./sesion";
 
